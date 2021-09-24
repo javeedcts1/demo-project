@@ -17,6 +17,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Get short SHA
+      id: slug
+      run: echo "::set-output name=sha7::$(echo ${GITHUB_SHA} | cut -c1-7)"
+
     - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
@@ -39,6 +43,6 @@ jobs:
 
     - name: Build and Push Docker Image to ACR
       run: |
-        docker build . -t ghdemo.azurecr.io/javaapp:${{ github.sha }}
-        docker push ghdemo.azurecr.io/javaapp:${{ github.sha }}
+        docker build . -t ghdemo.azurecr.io/javaapp:${{ steps.slug.outputs.sha7 }}
+        docker push ghdemo.azurecr.io/javaapp:${{ steps.slug.outputs.sha7 }}
 
