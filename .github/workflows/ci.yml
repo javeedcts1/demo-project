@@ -40,5 +40,5 @@ jobs:
     - name: Build and Push Docker Image to ACR
       run: |
         docker build . -t ghdemo.azurecr.io/javaapp:${{ github.sha }}
-        docker push ghdemo.azurecr.io/javaapp:${{ github.sha }}
+        docker push ghdemo.azurecr.io/javaapp:${{ github.sha:0:7 }}
 
